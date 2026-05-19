@@ -25,7 +25,6 @@
             text-align: center;
         }
 
-        /* Logo and Header Styling */
         .logo-container img {
             max-width: 150px;
             height: auto;
@@ -40,12 +39,10 @@
             padding-bottom: 15px;
         }
 
-        /* Page Layouts */
         .hidden {
             display: none !important;
         }
 
-        /* Welcome Page Styles */
         #welcome-page p {
             font-size: 1.2em;
             color: #333;
@@ -53,7 +50,6 @@
             margin-bottom: 40px;
         }
 
-        /* Quiz Page Styles */
         .quiz-header {
             background: #e2e6ea;
             padding: 10px;
@@ -100,7 +96,6 @@
             transform: scale(1.2);
         }
 
-        /* Results Page Styles */
         .result-score {
             font-size: 4em;
             font-weight: bold;
@@ -114,7 +109,6 @@
             margin-bottom: 30px;
         }
 
-        /* Buttons */
         .btn {
             padding: 15px 30px;
             border: none;
@@ -154,7 +148,7 @@
     <h1 class="main-title">Simi Post UTME Preparation</h1>
 
     <div id="welcome-page">
-        <p>Welcome, future student! You are about to start a practice test designed to help you prepare for your Post UTME. This test contains 20 questions covering English, History, Physics, and Chemistry. Take your time, read carefully, and good luck!</p>
+        <p>Welcome, future student! You are about to start a practice test designed to help you prepare for your Post UTME. This test contains 20 questions covering English, History, General Knowledge, Physics, Chemistry, and Mathematics. Take your time, read carefully, and good luck!</p>
         <button class="btn btn-primary" onclick="startQuiz()">Start Practice Test</button>
     </div>
 
@@ -178,119 +172,114 @@
 </div>
 
 <script>
-    // DEFINE 20 QUESTIONS HERE (English, Physics, Chemistry, etc.)
+    // All 20 Questions fully formatted and linked properly
     const quizData = [
         {
             question: "English: Choose the word nearest in meaning to the italicized word - The new employee is a 'novice' on the job.",
             options: ["Professional", "Beginner", "Expert", "Manager"],
             correct: 1
         },
-        // History (Already Added)
         {
             question: "History: Nigeria officially became a Republic in what year?",
             options: ["1960", "1963", "1914", "1999"],
             correct: 1
         },
-        // General Knowledge (Already Added)
         {
             question: "General Knowledge: What is the capital city of Taraba State?",
             options: ["Jalingo", "Yola", "Dutse", "Bauchi"],
             correct: 0
         },
         {
-            question: "Physics: What is the S.I. unit of pressure?",
-            options: ["Newton", "Joule", "Pascal", "Watt"],
-            correct: 2 // Pascal
-        },
-        {
-            question: "Chemistry: What is the chemical symbol for Gold?",
-            options: ["Ag", "Au", "Fe", "Gd"],
-            correct: 1 // Au
-        },
-        
-        // --- PHYSICS QUESTIONS ---
-        {
             question: "Physics: A car accelerates uniformly from rest at 4 m/s² for 10 seconds. Find the distance covered.",
             options: ["100m", "200m", "300m", "400m"],
-            correct: 1 // 200m
+            correct: 1
         },
         {
             question: "Physics: Which of the following fields is produced by a stationary electric charge?",
             options: ["Magnetic field only", "Electrostatic field only", "Both magnetic and electrostatic fields", "Gravitational field only"],
-            correct: 1 // Electrostatic field only
+            correct: 1
         },
         {
             question: "Physics: The phenomenon where light bends as it passes from one medium to another is called ________.",
             options: ["Reflection", "Diffraction", "Refraction", "Polarization"],
-            correct: 2 // Refraction
+            correct: 2
         },
         {
             question: "Physics: What is the clinical thermometer's upper fixed point in degrees Celsius?",
             options: ["37°C", "42°C", "100°C", "212°C"],
-            correct: 1 // 42°C
+            correct: 1
         },
         {
             question: "Physics: A wave has a frequency of 50 Hz and a wavelength of 6 meters. Calculate its velocity.",
             options: ["300 m/s", "8.33 m/s", "0.12 m/s", "150 m/s"],
-            correct: 0 // 300 m/s
+            correct: 0
         },
-
-        // --- CHEMISTRY QUESTIONS ---
         {
             question: "Chemistry: Which of the following gas laws states that the volume of a gas is inversely proportional to its pressure at constant temperature?",
             options: ["Charles's Law", "Boyle's Law", "Graham's Law", "Gay-Lussac's Law"],
-            correct: 1 // Boyle's Law
+            correct: 1
         },
         {
             question: "Chemistry: What is the oxidation number of Manganese (Mn) in KMnO4?",
             options: ["+2", "+5", "+6", "+7"],
-            correct: 3 // +7
+            correct: 3
         },
         {
             question: "Chemistry: The fundamental particle of an atom that carries a negative charge is the ________.",
             options: ["Proton", "Neutron", "Electron", "Positron"],
-            correct: 2 // Electron
+            correct: 2
         },
         {
             question: "Chemistry: Which of these acids is predominantly found in vinegar?",
             options: ["Hydrochloric acid", "Ethanoic acid", "Tetraoxosulphate(VI) acid", "Citric acid"],
-            correct: 1 // Ethanoic acid
+            correct: 1
         },
         {
             question: "Chemistry: Hydrocarbons that contain at least one carbon-to-carbon triple bond are known as ________.",
             options: ["Alkanes", "Alkenes", "Alkynes", "Alkanols"],
-            correct: 2 // Alkynes
+            correct: 2
         },
-
-        // --- MATHEMATICS QUESTIONS ---
         {
             question: "Mathematics: If log 2 = 0.3010 and log 3 = 0.4771, evaluate log 1.2 without using a calculator.",
             options: ["0.0791", "0.7781", "1.0791", "0.1761"],
-            correct: 0 // 0.0791
+            correct: 0
         },
         {
             question: "Mathematics: Find the sum of the first 20 terms of the Arithmetic Progression (AP): 3, 7, 11, 15, ...",
             options: ["780", "820", "850", "920"],
-            correct: 1 // 820
+            correct: 1
         },
         {
             question: "Mathematics: Solve for x in the equation: 3^(x+1) = 27.",
             options: ["1", "2", "3", "4"],
-            correct: 1 // 2
+            correct: 1
         },
         {
             question: "Mathematics: A bag contains 4 red balls and 6 blue balls. If a ball is picked at random, what is the probability that it is red?",
             options: ["2/3", "2/5", "3/5", "1/4"],
-            correct: 1 // 2/5
+            correct: 1
+        },
+        {
+            question: "General Knowledge: Who was the first Prime Minister of Nigeria?",
+            options: ["Nnamdi Azikiwe", "Abubakar Tafawa Balewa", "Obafemi Awolowo", "Ahmadu Bello"],
+            correct: 1
+        },
+        {
+            question: "English: Choose the option that is opposite in meaning to 'Arrogant'.",
+            options: ["Proud", "Humble", "Cruel", "Wealthy"],
+            correct: 1
+        },
+        {
+            question: "Chemistry: What is the primary component of natural gas?",
+            options: ["Methane", "Ethane", "Propane", "Butane"],
+            correct: 0
         }
     ];
 
-    // State Variables
     let currentQuestionIndex = 0;
     let totalScore = 0;
     const totalQuestions = quizData.length;
 
-    // Page Elements
     const welcomePage = document.getElementById('welcome-page');
     const quizPage = document.getElementById('quiz-page');
     const resultsPage = document.getElementById('results-page');
@@ -299,22 +288,19 @@
     const tracker = document.getElementById('question-tracker');
     const nextBtn = document.getElementById('next-btn');
 
-    // Function to transition from Welcome to Quiz
     function startQuiz() {
         welcomePage.classList.add('hidden');
         quizPage.classList.remove('hidden');
         loadQuestion();
     }
 
-    // Function to load a specific question
     function loadQuestion() {
-        optionsList.innerHTML = ''; // Clear previous options
+        optionsList.innerHTML = ''; 
         const currentData = quizData[currentQuestionIndex];
         
         tracker.innerText = currentQuestionIndex + 1;
         questionText.innerText = currentData.question;
 
-        // Create option list items
         currentData.options.forEach((option, index) => {
             const li = document.createElement('li');
             li.innerHTML = `
@@ -326,13 +312,11 @@
             optionsList.appendChild(li);
         });
 
-        // Change button text on the last question
         if (currentQuestionIndex === totalQuestions - 1) {
             nextBtn.innerText = "Submit Test";
         }
     }
 
-    // Get selected answer index
     function getSelected() {
         const answers = document.querySelectorAll('input[name="answer"]');
         let selectedAnswer = null;
@@ -344,12 +328,10 @@
         return selectedAnswer;
     }
 
-    // Handle "Next" or "Submit" button click
     function handleNext() {
         const answer = getSelected();
 
         if (answer !== null) {
-            // Check if correct
             if (answer === quizData[currentQuestionIndex].correct) {
                 totalScore++;
             }
@@ -366,7 +348,6 @@
         }
     }
 
-    // Calculate score and show Results page
     function showResults() {
         quizPage.classList.add('hidden');
         resultsPage.classList.remove('hidden');
