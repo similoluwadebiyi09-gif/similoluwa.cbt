@@ -1,0 +1,383 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SIMI CBT APP - Post UTME Prep</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f0f2f5;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+
+        .main-container {
+            background: #ffffff;
+            padding: 40px;
+            border-radius: 12px;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+            width: 90%;
+            max-width: 650px;
+            text-align: center;
+        }
+
+        /* Logo and Header Styling */
+        .logo-container img {
+            max-width: 150px;
+            height: auto;
+            margin-bottom: 15px;
+        }
+
+        .main-title {
+            color: #004085;
+            font-size: 2em;
+            margin-bottom: 30px;
+            border-bottom: 2px solid #b8daff;
+            padding-bottom: 15px;
+        }
+
+        /* Page Layouts */
+        .hidden {
+            display: none !important;
+        }
+
+        /* Welcome Page Styles */
+        #welcome-page p {
+            font-size: 1.2em;
+            color: #333;
+            line-height: 1.6;
+            margin-bottom: 40px;
+        }
+
+        /* Quiz Page Styles */
+        .quiz-header {
+            background: #e2e6ea;
+            padding: 10px;
+            border-radius: 8px;
+            font-weight: bold;
+            margin-bottom: 25px;
+            color: #495057;
+        }
+
+        .question {
+            font-size: 1.3em;
+            margin-bottom: 25px;
+            text-align: left;
+            color: #333;
+        }
+
+        .options {
+            list-style: none;
+            padding: 0;
+            text-align: left;
+        }
+
+        .options li {
+            margin-bottom: 15px;
+        }
+
+        .options label {
+            display: flex;
+            align-items: center;
+            padding: 15px;
+            background: #f8f9fa;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .options label:hover {
+            background: #e9ecef;
+        }
+
+        .options input {
+            margin-right: 15px;
+            transform: scale(1.2);
+        }
+
+        /* Results Page Styles */
+        .result-score {
+            font-size: 4em;
+            font-weight: bold;
+            color: #28a745;
+            margin: 20px 0;
+        }
+
+        .result-details {
+            font-size: 1.3em;
+            color: #6c757d;
+            margin-bottom: 30px;
+        }
+
+        /* Buttons */
+        .btn {
+            padding: 15px 30px;
+            border: none;
+            border-radius: 8px;
+            font-size: 1.2em;
+            cursor: pointer;
+            transition: background 0.3s;
+            font-weight: bold;
+        }
+
+        .btn-primary {
+            background-color: #007bff;
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background-color: #0056b3;
+        }
+
+        .btn-success {
+            background-color: #28a745;
+            color: white;
+            width: 100%;
+        }
+
+        .btn-success:hover {
+            background-color: #218838;
+        }
+    </style>
+</head>
+<body>
+
+<div class="main-container">
+    <div class="logo-container">
+        <img src="simi_logo.png" alt="SIMI CBT APP Logo">
+    </div>
+    <h1 class="main-title">Simi Post UTME Preparation</h1>
+
+    <div id="welcome-page">
+        <p>Welcome, future student! You are about to start a practice test designed to help you prepare for your Post UTME. This test contains 20 questions covering English, History, Physics, and Chemistry. Take your time, read carefully, and good luck!</p>
+        <button class="btn btn-primary" onclick="startQuiz()">Start Practice Test</button>
+    </div>
+
+    <div id="quiz-page" class="hidden">
+        <div class="quiz-header">
+            Question <span id="question-tracker">1</span> of 20
+        </div>
+        <div class="question" id="question-text">Loading question...</div>
+        <ul class="options" id="options-list">
+            </ul>
+        <button class="btn btn-success" id="next-btn" onclick="handleNext()">Next Question</button>
+    </div>
+
+    <div id="results-page" class="hidden">
+        <h2>Test Completed!</h2>
+        <p>Your score is:</p>
+        <div class="result-score"><span id="score-percent">0</span>%</div>
+        <div class="result-details">You answered <span id="score-count">0</span> out of <span id="total-questions">20</span> questions correctly.</div>
+        <button class="btn btn-primary" onclick="location.reload()">Try Again</button>
+    </div>
+</div>
+
+<script>
+    // DEFINE 20 QUESTIONS HERE (English, Physics, Chemistry, etc.)
+    const quizData = [
+        {
+            question: "English: Choose the word nearest in meaning to the italicized word - The new employee is a 'novice' on the job.",
+            options: ["Professional", "Beginner", "Expert", "Manager"],
+            correct: 1
+        },
+        // History (Already Added)
+        {
+            question: "History: Nigeria officially became a Republic in what year?",
+            options: ["1960", "1963", "1914", "1999"],
+            correct: 1
+        },
+        // General Knowledge (Already Added)
+        {
+            question: "General Knowledge: What is the capital city of Taraba State?",
+            options: ["Jalingo", "Yola", "Dutse", "Bauchi"],
+            correct: 0
+        },
+        {
+            question: "Physics: What is the S.I. unit of pressure?",
+            options: ["Newton", "Joule", "Pascal", "Watt"],
+            correct: 2 // Pascal
+        },
+        {
+            question: "Chemistry: What is the chemical symbol for Gold?",
+            options: ["Ag", "Au", "Fe", "Gd"],
+            correct: 1 // Au
+        },
+        
+        // --- PHYSICS QUESTIONS ---
+        {
+            question: "Physics: A car accelerates uniformly from rest at 4 m/s² for 10 seconds. Find the distance covered.",
+            options: ["100m", "200m", "300m", "400m"],
+            correct: 1 // 200m
+        },
+        {
+            question: "Physics: Which of the following fields is produced by a stationary electric charge?",
+            options: ["Magnetic field only", "Electrostatic field only", "Both magnetic and electrostatic fields", "Gravitational field only"],
+            correct: 1 // Electrostatic field only
+        },
+        {
+            question: "Physics: The phenomenon where light bends as it passes from one medium to another is called ________.",
+            options: ["Reflection", "Diffraction", "Refraction", "Polarization"],
+            correct: 2 // Refraction
+        },
+        {
+            question: "Physics: What is the clinical thermometer's upper fixed point in degrees Celsius?",
+            options: ["37°C", "42°C", "100°C", "212°C"],
+            correct: 1 // 42°C
+        },
+        {
+            question: "Physics: A wave has a frequency of 50 Hz and a wavelength of 6 meters. Calculate its velocity.",
+            options: ["300 m/s", "8.33 m/s", "0.12 m/s", "150 m/s"],
+            correct: 0 // 300 m/s
+        },
+
+        // --- CHEMISTRY QUESTIONS ---
+        {
+            question: "Chemistry: Which of the following gas laws states that the volume of a gas is inversely proportional to its pressure at constant temperature?",
+            options: ["Charles's Law", "Boyle's Law", "Graham's Law", "Gay-Lussac's Law"],
+            correct: 1 // Boyle's Law
+        },
+        {
+            question: "Chemistry: What is the oxidation number of Manganese (Mn) in KMnO4?",
+            options: ["+2", "+5", "+6", "+7"],
+            correct: 3 // +7
+        },
+        {
+            question: "Chemistry: The fundamental particle of an atom that carries a negative charge is the ________.",
+            options: ["Proton", "Neutron", "Electron", "Positron"],
+            correct: 2 // Electron
+        },
+        {
+            question: "Chemistry: Which of these acids is predominantly found in vinegar?",
+            options: ["Hydrochloric acid", "Ethanoic acid", "Tetraoxosulphate(VI) acid", "Citric acid"],
+            correct: 1 // Ethanoic acid
+        },
+        {
+            question: "Chemistry: Hydrocarbons that contain at least one carbon-to-carbon triple bond are known as ________.",
+            options: ["Alkanes", "Alkenes", "Alkynes", "Alkanols"],
+            correct: 2 // Alkynes
+        },
+
+        // --- MATHEMATICS QUESTIONS ---
+        {
+            question: "Mathematics: If log 2 = 0.3010 and log 3 = 0.4771, evaluate log 1.2 without using a calculator.",
+            options: ["0.0791", "0.7781", "1.0791", "0.1761"],
+            correct: 0 // 0.0791
+        },
+        {
+            question: "Mathematics: Find the sum of the first 20 terms of the Arithmetic Progression (AP): 3, 7, 11, 15, ...",
+            options: ["780", "820", "850", "920"],
+            correct: 1 // 820
+        },
+        {
+            question: "Mathematics: Solve for x in the equation: 3^(x+1) = 27.",
+            options: ["1", "2", "3", "4"],
+            correct: 1 // 2
+        },
+        {
+            question: "Mathematics: A bag contains 4 red balls and 6 blue balls. If a ball is picked at random, what is the probability that it is red?",
+            options: ["2/3", "2/5", "3/5", "1/4"],
+            correct: 1 // 2/5
+        }
+    ];
+
+    // State Variables
+    let currentQuestionIndex = 0;
+    let totalScore = 0;
+    const totalQuestions = quizData.length;
+
+    // Page Elements
+    const welcomePage = document.getElementById('welcome-page');
+    const quizPage = document.getElementById('quiz-page');
+    const resultsPage = document.getElementById('results-page');
+    const questionText = document.getElementById('question-text');
+    const optionsList = document.getElementById('options-list');
+    const tracker = document.getElementById('question-tracker');
+    const nextBtn = document.getElementById('next-btn');
+
+    // Function to transition from Welcome to Quiz
+    function startQuiz() {
+        welcomePage.classList.add('hidden');
+        quizPage.classList.remove('hidden');
+        loadQuestion();
+    }
+
+    // Function to load a specific question
+    function loadQuestion() {
+        optionsList.innerHTML = ''; // Clear previous options
+        const currentData = quizData[currentQuestionIndex];
+        
+        tracker.innerText = currentQuestionIndex + 1;
+        questionText.innerText = currentData.question;
+
+        // Create option list items
+        currentData.options.forEach((option, index) => {
+            const li = document.createElement('li');
+            li.innerHTML = `
+                <label>
+                    <input type="radio" name="answer" value="${index}">
+                    ${option}
+                </label>
+            `;
+            optionsList.appendChild(li);
+        });
+
+        // Change button text on the last question
+        if (currentQuestionIndex === totalQuestions - 1) {
+            nextBtn.innerText = "Submit Test";
+        }
+    }
+
+    // Get selected answer index
+    function getSelected() {
+        const answers = document.querySelectorAll('input[name="answer"]');
+        let selectedAnswer = null;
+        answers.forEach((ans) => {
+            if (ans.checked) {
+                selectedAnswer = parseInt(ans.value);
+            }
+        });
+        return selectedAnswer;
+    }
+
+    // Handle "Next" or "Submit" button click
+    function handleNext() {
+        const answer = getSelected();
+
+        if (answer !== null) {
+            // Check if correct
+            if (answer === quizData[currentQuestionIndex].correct) {
+                totalScore++;
+            }
+
+            currentQuestionIndex++;
+
+            if (currentQuestionIndex < totalQuestions) {
+                loadQuestion();
+            } else {
+                showResults();
+            }
+        } else {
+            alert("Please select an answer before continuing.");
+        }
+    }
+
+    // Calculate score and show Results page
+    function showResults() {
+        quizPage.classList.add('hidden');
+        resultsPage.classList.remove('hidden');
+
+        const percentage = Math.round((totalScore / totalQuestions) * 100);
+        
+        document.getElementById('score-percent').innerText = percentage;
+        document.getElementById('score-count').innerText = totalScore;
+        document.getElementById('total-questions').innerText = totalQuestions;
+    }
+</script>
+
+</body>
+</html>
